@@ -1,0 +1,54 @@
+{% load staticfiles %}
+
+<html>
+
+  <head>
+    <title>Pokemon Quiz</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'css/quiz.css' %}" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <script language="javascript" type="text/javascript">
+          function hint1() {
+              target = document.getElementById("hint1");
+              target.innerHTML = "{{hint1}}";
+          }
+          function hint2() {
+              target = document.getElementById("hint2");
+              target.innerHTML = "{{hint2}}";
+          }
+          function hint3() {
+              target = document.getElementById("hint3");
+              target.innerHTML = "{{hint3}}";
+          }
+          function ans() {
+            target = document.getElementById("answer");
+            target.innerHTML = "{{answer}}";
+            target = document.getElementById("picture");
+            target.innerHTML = "<img src=\"img/pokemon_image.png\" class=\"pic\" alt=\"ポケモンの画像\" width=\"400\" height=\"400\">";
+        }
+      </script>
+  </head>
+
+  <body>
+    <h1>Quiz from Pokemon Daisuki Club</h1>
+    <div id="answer"><a href={{url}} target="_blank"></a></div>
+    <div id="picture"></div>
+
+    <ul class="button">
+        <li><input type="button" value="ヒント1" onClick="hint1()"></li>
+        <li><input type="button" value="ヒント2" onClick="hint2()"></li>
+        <li><input type="button" value="ヒント3" onClick="hint3()"></li>
+        <li><input type="button" value="答え" onClick="ans()"></li>
+    </ul>
+    <br><br>
+    <ul>
+        <li><div id=hint1></div></li>
+        <li><div id=hint2></div></li>
+        <li><div id=hint3></div></li>
+    </ul>
+
+    <div id="description">{{descr}}</div>
+    <br><br>
+  </body>
+
+</html>
