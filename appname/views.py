@@ -9,45 +9,59 @@ import random
 def appmain(request):
     #pythonコード
     while True:
-        pokemonnum=random.randrange(493)+1 #807まで
+        num = random.randrange(493)+1 #807まで
+        if num < 10:
+            pokemonnum = "00" + str(num)
+        elif num >= 10 and num < 100:
+            pokemonnum = "0" + str(num)
+        else:
+            pokemonnum = str(num)
         url = "http://www.pokemon.jp/zukan/detail/" + str(pokemonnum) + ".html"
         res = requests.get(url)
 
+        #soup = bs4.BeautifulSoup(res.text, "html5lib")
         soup = bs4.BeautifulSoup(res.text, "html5lib")
 
         title = soup.select(".name")[0].getText()
         char = soup.select(".txt")[0].getText()
 
-        '''
+
+        #タイプ
+        cnt = 0
         ptype = []
-        for ty in soup.find_all("a"):
-            if ty.get("href").startswith("/zukan/?type="):
-            	ptype.append(ty.get("span").getText())
-        type1 = ptype[0]
-        '''
+        type = ""
+        for typ in soup.find_all(class_="pokemon-type col2"):
+            for typ1 in typ.find_all("li"):
+                ptype.append(typ1.get("class"))
+                if cnt > 0:
+                    type = type + "・"
+                type = type + soup.select("." + str(ptype[cnt]).strip('[]\'', ) + " span")[0].getText()
+                cnt = cnt + 1
+            if cnt > 0:
+                break
 
-        type1 = "ひこう"
 
-
-        if pokemonnum >= 1 and pokemonnum <= 151:
+        if num >= 1 and num <= 151:
             location = "カントー地方"
-        elif pokemonnum >= 152 and pokemonnum <= 251:
+        elif num >= 152 and num <= 251:
             location = "ジョウト地方"
-        elif pokemonnum >= 252 and pokemonnum <= 386:
+        elif num >= 252 and num <= 386:
             location = "ホウエン地方"
-        elif pokemonnum >= 387 and pokemonnum <= 493:
+        elif num >= 387 and num <= 493:
             location = "シンオウ地方"
-        elif pokemonnum >= 494 and pokemonnum <= 649:
+        elif num >= 494 and num <= 649:
             location = "イッシュ地方"
-        elif pokemonnum >= 650 and pokemonnum <= 721:
+        elif num >= 650 and num <= 721:
             location = "カロス地方"
-        elif pokemonnum >= 722 and pokemonnum <= 807:
+        elif num >= 722 and num <= 807:
             location = "アローラ地方"
+
 
         description = soup.select("#tab1")[0].getText()
         description2 = description.replace(title, '*' * len(title))
         if description != description2:
             break
+
 
         #画像の部分
         images = []
@@ -55,6 +69,7 @@ def appmain(request):
             if link.get("src").startswith("/zukan/images"): # imgタグ内の.pngであるsrcタグを取得
             	images.append("http://www.pokemon.jp"+link.get("src")) # imagesリストに格納
 
+        imgurl = images[0]
         #for target in images: # imagesからtargetに入れる
         target = images[0]
         re = requests.get(target)
@@ -67,5 +82,6 @@ def appmain(request):
             'url' : url,
             'hint1' : location,
             'hint2' : char,
-            'hint3' : type1,
+            'hint3' : type,
+            'imgurl' : imgurl,
         })

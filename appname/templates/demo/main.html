@@ -24,7 +24,7 @@
             target = document.getElementById("answer");
             target.innerHTML = "{{answer}}";
             target = document.getElementById("picture");
-            target.innerHTML = "<img src=\"img/pokemon_image.png\" class=\"pic\" alt=\"ポケモンの画像\" width=\"400\" height=\"400\">";
+            target.innerHTML = "<img src=\"{{imgurl}}\" class=\"pic\" alt=\"ポケモンの画像\" width=\"400\" height=\"400\">";
         }
       </script>
   </head>
@@ -41,7 +41,7 @@
         <li><input type="button" value="答え" onClick="ans()"></li>
     </ul>
     <br><br>
-    <ul>
+    <ul class="answers">
         <li><div id=hint1></div></li>
         <li><div id=hint2></div></li>
         <li><div id=hint3></div></li>

@@ -32,6 +32,12 @@ a {
 .button {
     text-align: center;
 }
+.answers{
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 ul {
     list-style:none;
@@ -51,7 +57,7 @@ input[type="button"] {
 
     /* 縦方向に10px、
      * 横方向に30pxの余白を指定 */
-    padding: 10px 30px;
+    padding: 10px 100px;
 
     /* 背景色を濃い青色に指定 */
     background-color: #248;
@@ -84,16 +90,22 @@ input[type="button"]:hover {
 #hint1 {
     font-size: 30px;
     font-family: "snas-serif";
+    margin: 0 auto;
+    text-align: center;
 }
 
 #hint2 {
     font-size: 30px;
     font-family: "snas-serif";
+    margin: 0 auto;
+    text-align: center;
 }
 
 #hint3 {
     font-size: 30px;
     font-family: "snas-serif";
+    margin: 0 auto;
+    text-align: center;
 }
 
 #answer {
